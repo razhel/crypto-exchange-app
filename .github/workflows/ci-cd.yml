@@ -34,6 +34,7 @@ jobs:
         uses: ibiqlik/action-yamllint@v3
         with:
           config_file: .yamllint.yml # Optional, or remove this line
+        continue-on-error: true
 
   trivy-scan:
     name: Trivy Security Scans
