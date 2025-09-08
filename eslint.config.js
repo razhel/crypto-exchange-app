@@ -1,23 +1,25 @@
-module.exports = {
-  env: {
-    browser: false,
-    node: true,
-    es2021: true,
+import node from 'eslint-plugin-node';  // Plugin import
+
+export default [
+  {
+    languageOptions: {
+      globals: {
+        node: true,
+        es2021: true,
+      },
+      parserOptions: {
+        ecmaVersion: 'latest',
+      },
+    },
+    plugins: {
+      node,  // Using the plugin object here
+    },
+    rules: {
+      'no-console': 'warn',
+      'no-unused-vars': 'warn', // Example rule
+      'no-debugger': 'warn',    // Example rule
+      // 'node/no-unsupported-features/es-syntax': 'error', // Commenting this out temporarily
+      'node/no-missing-import': 'error',
+    },
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:node/recommended',
-  ],
-  parserOptions: {
-    ecmaVersion: 12,
-    sourceType: 'module',
-  },
-  rules: {
-    'no-unused-vars': 'warn',         // Warn if variables are declared but not used
-    'no-console': 'off',              // Allow console.log etc.
-    'eqeqeq': ['error', 'always'],    // Require === and !==
-    'curly': 'error',                 // Require braces for blocks
-    'semi': ['error', 'always'],      // Require semicolons
-    'quotes': ['error', 'single'],    // Use single quotes
-  },
-};
+];
