@@ -1,5 +1,6 @@
-const express = require('express');
-const coinGeckoService = require('../services/coinGeckoService');
+// src/routes/rates.js
+import express from 'express';
+import coinGeckoService from '../services/coinGeckoService.js';  // Use ESM import
 
 const router = express.Router();
 
@@ -37,4 +38,4 @@ router.get('/prices', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;  // Use ESM export

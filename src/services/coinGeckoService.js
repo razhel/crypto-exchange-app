@@ -1,4 +1,5 @@
-const axios = require('axios');
+// src/services/coinGeckoService.js
+import axios from 'axios';
 
 class CoinGeckoService {
   constructor() {
@@ -89,4 +90,4 @@ class CoinGeckoService {
   }
 }
 
-module.exports = new CoinGeckoService();
+export default new CoinGeckoService();  // ESM export
