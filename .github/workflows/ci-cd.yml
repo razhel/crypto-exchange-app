@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Install dependencies
         run: npm ci
@@ -33,7 +33,7 @@ jobs:
       - name: Lint YAML files
         uses: ibiqlik/action-yamllint@v3
         with:
-          config_file: .yamllint.yml  # Optional, or remove this line
+          config_file: .yamllint.yml # Optional, or remove this line
 
   trivy-scan:
     name: Trivy Security Scans
@@ -48,16 +48,16 @@ jobs:
         with:
           scan-type: config
           scan-ref: ./Dockerfile
-          exit-code: '1'
-          severity: 'HIGH,CRITICAL'
+          exit-code: "1"
+          severity: "HIGH,CRITICAL"
 
       - name: Project directory scan (Trivy FS)
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: fs
           scan-ref: .
-          exit-code: '1'
-          severity: 'HIGH,CRITICAL'
+          exit-code: "1"
+          severity: "HIGH,CRITICAL"
 
   build-and-push:
     name: Build & Push Docker Image
