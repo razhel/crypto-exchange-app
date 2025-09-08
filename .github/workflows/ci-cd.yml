@@ -91,7 +91,7 @@ jobs:
 
   deploy-to-minikube:
     name: Deploy to Minikube (Self-Hosted)
-    runs-on: [self-hosted, fedora, minikube]
+    runs-on: self-hosted
     needs: build-and-push
     steps:
       - name: Checkout code
