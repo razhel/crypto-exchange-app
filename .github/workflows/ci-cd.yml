@@ -25,9 +25,7 @@ jobs:
         run: npm ci
 
       - name: Run ESLint
-        run: |
-          npm install -g eslint
-          eslint . --ext .js,.jsx,.ts,.tsx
+        run: npm run lint
 
       - name: Run npm audit
         run: npm audit --audit-level=moderate
