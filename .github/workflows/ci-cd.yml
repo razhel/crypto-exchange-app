@@ -87,7 +87,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/razhel/crypto-exchange-app:${{ github.sha }}
+          tags: ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app:${{ github.sha }} # This is your unique tag
 
   deploy-to-minikube:
     name: Deploy to Minikube (Self-Hosted)
@@ -99,11 +99,11 @@ jobs:
 
       - name: Deploy with Helm to local Minikube
         env:
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: ${{ github.sha }} # Use commit SHA as tag
         run: |
           helm upgrade --install crypto-app \
             ./helm/crypto-app \
-            --set image.repository=ghcr.io/razhel/crypto-exchange-app \
+            --set image.repository=ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app \
             --set image.tag=${IMAGE_TAG} \
             --namespace default \
             --create-namespace

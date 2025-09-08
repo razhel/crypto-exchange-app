@@ -4,7 +4,7 @@ replicaCount: 3
 image:
   repository: ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app
   pullPolicy: IfNotPresent
-  tag: "v1.0"
+  tag: "latest"
   pullSecrets:
     - name: ghcr-secret
 

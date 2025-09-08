@@ -1,9 +1,10 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const path = require('path');
-const ratesRouter = require('./routes/rates');
+// src/app.js
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import path from 'path';
+import ratesRouter from './routes/rates.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,5 +28,4 @@ app.get('/health', (req, res) => {
   });
 });
 
-
-module.exports = app;
+export default app;
