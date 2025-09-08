@@ -112,4 +112,4 @@ jobs:
         run: |
           kubectl rollout status deployment/crypto-app \
             --namespace default \
-            --timeout=120s
+            --timeout=150s
