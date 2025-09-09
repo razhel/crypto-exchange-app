@@ -99,8 +99,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create Kubernetes TLS Secret
+      - name: Create or Update Kubernetes TLS Secret
         run: |
+          if kubectl get secret crypto-app-tls --namespace default; then
+            echo "Secret crypto-app-tls exists. Deleting it."
+            kubectl delete secret crypto-app-tls --namespace default
+          fi
           echo "$TLS_CERT" | base64 --decode > crypto-app-tls.crt
           echo "$TLS_KEY" | base64 --decode > crypto-app-tls.key
           kubectl create secret tls crypto-app-tls \
