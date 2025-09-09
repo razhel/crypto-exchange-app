@@ -36,12 +36,14 @@ service:
   type: ClusterIP
   port: 80
   targetPort: 3000
+  httpsPort: 443
+  httpsTargetPort: 3000
 
 ingress:
   enabled: true
   className: "nginx"
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Optional if using cert-manager for LetsEncrypt
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   hosts:
@@ -50,7 +52,7 @@ ingress:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: crypto-app-tls
+    - secretName: crypto-app-tls  # This should reference the Kubernetes TLS Secret
       hosts:
         - crypto-rates.local
 
@@ -106,7 +108,9 @@ networkPolicy:
             name: ingress-nginx
       ports:
       - protocol: TCP
-        port: 3000
+        port: 80
+      - protocol: TCP
+        port: 443
   egress:
     - to: []
       ports:
@@ -116,3 +120,4 @@ networkPolicy:
         port: 53
       - protocol: UDP
         port: 53
+

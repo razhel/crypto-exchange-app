@@ -99,6 +99,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create Kubernetes TLS Secret
+        run: |
+          echo "$TLS_CERT" | base64 --decode > crypto-app-tls.crt
+          echo "$TLS_KEY" | base64 --decode > crypto-app-tls.key
+          kubectl create secret tls crypto-app-tls \
+            --cert=crypto-app-tls.crt \
+            --key=crypto-app-tls.key \
+            --namespace default
+        env:
+          TLS_CERT: ${{ secrets.TLS_CERT }}
+          TLS_KEY: ${{ secrets.TLS_KEY }}
+
       - name: Deploy with Helm to local Minikube
         env:
           IMAGE_TAG: ${{ github.sha }} # Use commit SHA as tag
