@@ -87,9 +87,9 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: 
-            - ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app:${{ github.sha }}  # Commit SHA tag
-            - ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app:latest           # Latest tag
+          tags: |
+            ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app:${{ github.sha }} 
+            ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app:latest
 
   deploy-to-minikube:
     name: Deploy to Minikube (Self-Hosted)
