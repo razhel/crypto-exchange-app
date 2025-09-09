@@ -33,7 +33,7 @@ jobs:
       - name: Lint YAML files
         uses: ibiqlik/action-yamllint@v3
         with:
-          config_file: .yamllint.yml
+          config_file: .yamllint.yml # Optional, or remove this line
         continue-on-error: true
 
   trivy-scan:
@@ -88,8 +88,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: 
-            - ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app:${{ github.sha }}
-            - ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app:latest
+            - ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app:${{ github.sha }}  # Commit SHA tag
+            - ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app:latest           # Latest tag
 
   deploy-to-minikube:
     name: Deploy to Minikube (Self-Hosted)
