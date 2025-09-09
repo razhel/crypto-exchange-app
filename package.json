@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Cryptocurrency exchange rate display application",
   "main": "src/app.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
@@ -14,7 +15,8 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "prom-client": "^15.1.0"
   },
   "devDependencies": {
     "eslint": "^9.35.0",
@@ -26,6 +28,5 @@
   },
   "resolutions": {
     "glob": "11.0.3"
-  },
-  "type": "module"
+  }
 }

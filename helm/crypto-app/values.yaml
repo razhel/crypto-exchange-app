@@ -36,23 +36,18 @@ service:
   type: ClusterIP
   port: 80
   targetPort: 3000
-  httpsPort: 443
-  httpsTargetPort: 3000
 
 ingress:
   enabled: true
   className: "nginx"
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Optional if using cert-manager for LetsEncrypt
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  annotations: {}
   hosts:
     - host: crypto-rates.local
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: crypto-app-tls  # This should reference the Kubernetes TLS Secret
+    - secretName: crypto-app-tls
       hosts:
         - crypto-rates.local
 
@@ -103,21 +98,22 @@ networkPolicy:
   enabled: true
   ingress:
     - from:
-      - namespaceSelector:
-          matchLabels:
-            name: ingress-nginx
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
       ports:
-      - protocol: TCP
-        port: 80
-      - protocol: TCP
-        port: 443
+        - protocol: TCP
+          port: 3000
   egress:
     - to: []
       ports:
-      - protocol: TCP
-        port: 443
-      - protocol: TCP
-        port: 53
-      - protocol: UDP
-        port: 53
+        - protocol: TCP
+          port: 443
+        - protocol: TCP
+          port: 53
+        - protocol: UDP
+          port: 53
 
+kube-prometheus-stack:
+  prometheusOperator:
+    crdCreate: false

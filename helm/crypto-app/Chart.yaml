@@ -14,3 +14,7 @@ keywords:
   - api
 sources:
   - https://github.com/razhel/crypto-exchange-app
+dependencies:
+  - name: kube-prometheus-stack
+    version: 77.6.0 
+    repository: https://prometheus-community.github.io/helm-charts

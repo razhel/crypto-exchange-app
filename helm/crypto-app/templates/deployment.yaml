@@ -5,9 +5,14 @@ metadata:
   labels:
     {{- include "crypto-app.labels" . | nindent 4 }}
 spec:
-{{- if not .Values.autoscaling.enabled }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-{{- end }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "crypto-app.selectorLabels" . | nindent 6 }}

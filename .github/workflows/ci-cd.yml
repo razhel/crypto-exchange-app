@@ -115,6 +115,37 @@ jobs:
           TLS_CERT: ${{ secrets.TLS_CERT }}
           TLS_KEY: ${{ secrets.TLS_KEY }}
 
+
+      - name: Add Prometheus Helm repo and update dependencies
+        run: |
+          helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+          helm repo update
+
+      - name: Install Prometheus Operator CRDs and stack
+        run: |
+          helm upgrade --install prometheus-operator prometheus-community/kube-prometheus-stack \
+            --namespace monitoring --create-namespace \
+            --set prometheusOperator.crdCreate=true \
+            --set prometheusOperator.crdCleanupPolicy=all \
+            --set alertmanager.enabled=false \
+            --set kubeEtcd.enabled=false \
+            --set kubeApiServer.enabled=false \
+            --set kubeControllerManager.enabled=false \
+            --set kubeScheduler.enabled=false \
+            --set kubeProxy.enabled=false \
+            --set kubelet.serviceMonitor.enabled=false \
+            --set kubelet.podMonitor.enabled=false
+
+      - name: Deploy with Helm to local Minikube
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          helm upgrade --install crypto-app ./helm/crypto-app \
+            --set image.repository=ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app \
+            --set image.tag=${IMAGE_TAG} \
+            --namespace default \
+            --create-namespace
+
       - name: Deploy with Helm to local Minikube
         env:
           IMAGE_TAG: ${{ github.sha }} # Use commit SHA as tag
