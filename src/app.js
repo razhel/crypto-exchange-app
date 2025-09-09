@@ -33,4 +33,9 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Start the server and expose it to all IPs (0.0.0.0) so it's accessible externally
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 export default app;
