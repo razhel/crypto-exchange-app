@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Values.nameOverride | default "crypto-app" }}
+  name: {{ $.Values.nameOverride | default "crypto-app" }}
   labels:
     {{- include "crypto-app.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -17,11 +17,17 @@ spec:
   tls:
     - secretName: crypto-app-tls  # Reference the TLS Secret
       hosts:
-        - {{ .Values.ingress.hosts[0].host | quote }}
+        {{- range .Values.ingress.tls }}
+        {{- if .hosts }}
+        - {{ .hosts | first | quote }}  # Safely access the first host in the tls section
+        {{- else }}
+        - "default-host.local"  # Fallback if no hosts are provided
+        {{- end }}
+        {{- end }}
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ .host | quote }}  # Directly access the host field here
       http:
         paths:
           {{- range .paths }}
@@ -29,7 +35,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ .Values.nameOverride | default "crypto-app" }}
+                name: {{ $.Values.nameOverride | default "crypto-app" }}
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}
