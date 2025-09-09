@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "crypto-app.fullname" . }}
+  name: {{ .Values.nameOverride | default "crypto-app" }}
   labels:
     {{- include "crypto-app.labels" . | nindent 4 }}
 spec:
@@ -82,4 +82,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-

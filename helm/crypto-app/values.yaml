@@ -8,7 +8,7 @@ image:
   pullSecrets:
     - name: ghcr-secret
 
-nameOverride: ""
+nameOverride: "crypto-app"
 fullnameOverride: ""
 
 serviceAccount:
