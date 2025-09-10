@@ -101,7 +101,14 @@ networkPolicy:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: ingress-nginx
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
       ports:
+        - protocol: TCP
+          port: 80
+        - protocol: TCP
+          port: 443
         - protocol: TCP
           port: 3000
   egress:
@@ -113,6 +120,7 @@ networkPolicy:
           port: 53
         - protocol: UDP
           port: 53
+
 
 kube-prometheus-stack:
   prometheusOperator:

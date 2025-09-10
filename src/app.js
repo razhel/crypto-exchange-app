@@ -28,9 +28,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Metrics endpoint
-app.get('/metrics', (req, res) => {
-  res.set('Content-Type', register.contentType);
-  res.end(register.metrics());
+app.get('/metrics', async (req, res) => {
+  try {
+    res.set('Content-Type', register.contentType);
+    const metrics = await register.metrics();
+    res.end(metrics);
+  } catch (ex) {
+    res.status(500).end(ex.message);
+  }
 });
 
 // API routes
