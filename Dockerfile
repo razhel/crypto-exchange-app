@@ -37,7 +37,7 @@ USER nodeuser
 EXPOSE 3000
 
 # Healthcheck command using curl (optional, can also use node's built-in HTTP)
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+HEALTHCHECK --interval=22s --timeout=3s --start-period=5s --retries=3 \
   CMD curl --silent --fail http://localhost:3000/health || exit 1
 
 # Start the app using app.js directly
