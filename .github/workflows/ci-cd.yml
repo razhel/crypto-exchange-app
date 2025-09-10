@@ -155,3 +155,13 @@ jobs:
           kubectl rollout status deployment/crypto-app \
             --namespace default \
             --timeout=150s
+
+
+      - name: Smoke test – check app health endpoint
+        run: |
+          echo "Waiting 10s before checking health..."
+          sleep 10
+          curl -f https://crypto-rates.local || {
+            echo "Smoke test failed – app is not healthy"
+            exit 1
+          }
