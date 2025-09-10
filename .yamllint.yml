@@ -6,8 +6,7 @@ rules:
   indentation:
     spaces: 2
     level: error
-  trailing-spaces:
-    level: ignore
+  trailing-spaces: null
 
 ignore:
   - helm/**
