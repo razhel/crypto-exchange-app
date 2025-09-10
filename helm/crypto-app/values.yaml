@@ -93,6 +93,8 @@ monitoring:
   enabled: true
   serviceMonitor:
     enabled: true
+    labels:
+      release: prometheus-operator
 
 networkPolicy:
   enabled: true
@@ -121,7 +123,3 @@ networkPolicy:
         - protocol: UDP
           port: 53
 
-
-kube-prometheus-stack:
-  prometheusOperator:
-    crdCreate: false

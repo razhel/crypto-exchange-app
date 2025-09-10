@@ -25,7 +25,12 @@
   kubectl get pods -l "{{ include "crypto-app.selectorLabels" . }}" -n {{ .Release.Namespace }}
   
 3. Check application health:
-  kubectl exec -it deployment/{{ include "crypto-app.fullname" . }} -n {{ .Release.Namespace }} -- curl http://localhost:3000/health
+
+   kubectl port-forward svc/crypto-app 8080:80
+   curl http://localhost:8080/health
+   curl http://localhost:8080/metrics
+
+#  kubectl exec -it deployment/{{ include "crypto-app.fullname" . }} -n {{ .Release.Namespace }} -- curl http://localhost:3000/health
 
 4. Inspect grafana:
    export POD_NAME=$(kubectl get pods -n monitoring -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=prometheus-operator" -o jsonpath="{.items[0].metadata.name}")
