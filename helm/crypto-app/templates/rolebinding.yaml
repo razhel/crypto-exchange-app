@@ -1,0 +1,17 @@
+{{- if .Values.rbac.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "crypto-app.fullname" . }}-binding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "crypto-app.labels" . | nindent 4 }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "crypto-app.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: {{ include "crypto-app.fullname" . }}-role
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}
