@@ -125,6 +125,9 @@ jobs:
         run: |
           helm upgrade --install prometheus-operator prometheus-community/kube-prometheus-stack \
             --namespace monitoring --create-namespace \
+            --set prometheus-node-exporter.hostNetwork=true \
+            --set prometheus-node-exporter.dnsPolicy=ClusterFirstWithHostNet \
+            --set prometheus-node-exporter.hostPort=null \
             --set prometheusOperator.crdCreate=true \
             --set prometheusOperator.crdCleanupPolicy=all \
             --set alertmanager.enabled=false \
