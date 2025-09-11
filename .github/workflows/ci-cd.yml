@@ -143,7 +143,7 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          helm upgrade --install crypto-app ./helm/crypto-app \
+          helm upgrade --install crypto-app ./helm/crypto-app -f ./helm/crypto-app/values.yaml \
             --history-max=3 \
             --set image.repository=ghcr.io/razhel/crypto-exchange-app/crypto-exchange-app \
             --set image.tag=${IMAGE_TAG} \
